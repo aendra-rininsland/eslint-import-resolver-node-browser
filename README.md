@@ -1,8 +1,10 @@
-# eslint-import-resolver-node
+# eslint-import-resolver-node-browser
 
 [![npm](https://img.shields.io/npm/v/eslint-import-resolver-node.svg)](https://www.npmjs.com/package/eslint-import-resolver-node)
 
-Default Node-style module resolution plugin for [`eslint-plugin-import`](https://www.npmjs.com/package/eslint-plugin-import).
+Default Node-style module resolution plugin for [`eslint-plugin-import`](https://www.npmjs.com/package/eslint-plugin-import), with spicy package.browser resolution.
+
+Effectively a fork of [eslint-import-resolver-node](https://github.com/benmosher/eslint-plugin-import/tree/master/resolvers/node) supporting more "main" fields.
 
 Published separately to allow pegging to a specific version in case of breaking
 changes.
@@ -27,13 +29,12 @@ settings:
 
       # this is technically for identifying `node_modules` alternate names
       moduleDirectory:
-
         - node_modules # defaults to 'node_modules', but...
         - bower_components
 
-        - project/src  # can add a path segment here that will act like
-                       # a source root, for in-project aliasing (i.e.
-                       # `import MyStore from 'stores/my-store'`)
+        - project/src # can add a path segment here that will act like
+          # a source root, for in-project aliasing (i.e.
+          # `import MyStore from 'stores/my-store'`)
 ```
 
 or to use the default options:
