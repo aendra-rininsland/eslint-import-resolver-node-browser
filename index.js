@@ -1,7 +1,7 @@
 var resolve = require('resolve')
   , path = require('path')
 
-var log = require('debug')('eslint-plugin-import:resolver:node')
+var log = require('debug')('eslint-plugin-import:resolver:node-browser')
 
 exports.interfaceVersion = 2
 
@@ -34,18 +34,20 @@ function opts(file, config) {
     {
       // path.resolve will handle paths relative to CWD
       basedir: path.dirname(path.resolve(file)),
-      packageFilter: pkg => packageFilter(pkg, cfg),
+      packageFilter: pkg => packageFilter(pkg, config),
 
     })
 }
 
-function packageFilter(pkg, cfg) {
+function packageFilter(pkg, config) {
   if (pkg['jsnext:main']) {
     pkg['main'] = pkg['jsnext:main']
-  } else if (pkg['browser']) { // Hmm we should make t
+  } else if (pkg['browser']) {
+    log(`Using browser field: ${pkg['browser']}`);
     pkg['main'] = pkg['browser']
-  } else if (cfg && cfg.mainField && pkg[cfg.mainField]) {
-    pkg['main'] = pkg[cfg.mainField]
+  } else if (config && config.mainField && pkg[config.mainField]) {
+    log(`Using ${config.mainField} field: ${pkg['browser']}`);
+    pkg['main'] = pkg[config.mainField]
   }
   return pkg
 }
